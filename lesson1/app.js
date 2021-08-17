@@ -53,6 +53,25 @@ const pathFileDiana = path.join(pathEight, 'diana.txt')
 //     console.log(err);
 // })
 
+// fs.readdir(pathEight,(err4, files) => {
+//     if (err4){
+//         console.log(err4)
+//         return;
+//     }
+//     files.forEach(file=>{
+//         const filePathNew = path.join(pathSix, file)
+//         const filePathOld = path.join(pathEight,file)
+//         fs.stat(filePathOld, (err, stats) => {
+//             if(stats.isFile()){
+//                 fs.rename(filePathOld, filePathNew, err1 => {
+//                     console.log(err1)
+//                 })
+//             }
+//
+//         })
+//     })
+// })
+
 fs.readdir(pathSix, (err, files) => {
     if (err) {
         console.log(err);
@@ -74,6 +93,7 @@ fs.readdir(pathSix, (err, files) => {
                            console.log(err3)
                        })
                    }
+
 
 
                })
