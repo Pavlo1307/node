@@ -2,12 +2,12 @@
 const fs = (require('fs'));
 const path = require('path');
 
-const oleg = "{'name': 'Oleg', 'gender':'male'}'"
-const dima = "{'name': 'Dima', 'gender':'male'}"
-const sasha = "{'name': 'Sasha', 'gender':'male'}"
-const vika = "{'name': 'Vika', 'gender':'female'}"
-const sophia = "{'name': 'Sophia', 'gender':'female'}"
-const diana = "{'name': 'Diana', 'gender':'female'}"
+const oleg = '{"name": "Oleg", "gender":"male"}'
+const dima = '{"name": "Dima", "gender":"male"}'
+const sasha = '{"name": "Sasha", "gender":"male"}'
+const vika = '{"name": "Vika", "gender":"female"}'
+const sophia = '{"name": "Sophia", "gender":"female"}'
+const diana = '{"name": "Diana", "gender":"female"}'
 
 const pathSix = path.join(__dirname, 'six')
 const pathEight = path.join(__dirname, 'eight')
@@ -21,7 +21,6 @@ const pathFileDiana = path.join(pathEight, 'diana.txt')
 
 
 
-
 // fs.mkdir(pathSix, err => {
 //     console.log(err)
 // });
@@ -29,32 +28,60 @@ const pathFileDiana = path.join(pathEight, 'diana.txt')
 // fs.mkdir(pathEight, err => {
 //     console.log(err)
 // });
+//
+// fs.writeFile(pathFileOleg, oleg, err => {
+//     console.log(err);
+// })
+//
+// fs.writeFile(pathFileDima, dima, err => {
+//     console.log(err);
+// })
+//
+// fs.writeFile(pathFileSasha, sasha, err => {
+//     console.log(err);
+// })
+//
+// fs.writeFile(pathFileVika, vika, err => {
+//     console.log(err);
+// })
+//
+// fs.writeFile(pathFileSophia, sophia, err => {
+//     console.log(err);
+// })
+//
+// fs.writeFile(pathFileDiana, diana, err => {
+//     console.log(err);
+// })
 
-fs.writeFile(pathFileOleg, oleg, err => {
-    console.log(err);
+fs.readdir(pathSix, (err, files) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    files.forEach(file=>{
+        const filePath = path.join(pathSix, file)
+        const filePathNew = path.join(pathEight,file)
+        fs.stat(filePath, (err1, stats) => {
+            if(stats.isFile()){
+               fs.readFile(filePath, (err2, data) => {
+                   if(err) {
+                       console.log(err);
+                       return;
+                   }
+                  let dataFile = JSON.parse(data)
+                   if(dataFile.gender == "male"){
+                       fs.rename(filePath, filePathNew, err3 => {
+                           console.log(err3)
+                       })
+                   }
+
+
+               })
+            }
+        })
+    })
 })
 
-fs.writeFile(pathFileDima, dima, err => {
-    console.log(err);
-})
 
-fs.writeFile(pathFileSasha, sasha, err => {
-    console.log(err);
-})
 
-fs.writeFile(pathFileSasha, sasha, err => {
-    console.log(err);
-})
-
-fs.writeFile(pathFileVika, vika, err => {
-    console.log(err);
-})
-
-fs.writeFile(pathFileSophia, sophia, err => {
-    console.log(err);
-})
-
-fs.writeFile(pathFileDiana, diana, err => {
-    console.log(err);
-})
 
