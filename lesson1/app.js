@@ -13,6 +13,7 @@ const users = [
     {name: "Seryu", gender: "male", age: 14},
     {name: "Vitalik", gender: "male", age: 15}
 ]
+console.log(users)
 
 
 
