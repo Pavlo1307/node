@@ -1,4 +1,5 @@
 
 const fileData = require('./dir/file1')
 
-console.log(fileData);
+// fileData.greeting('Мирослава');
+
