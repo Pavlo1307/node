@@ -1,1 +1,4 @@
-console.log('hello word')
+
+const fileData = require('./dir/file1')
+
+console.log(fileData);

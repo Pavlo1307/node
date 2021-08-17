@@ -1,1 +1,5 @@
-module.exports = 'Hello';
+module.exports = {
+    greeting: function () {
+        console.log('hello');
+    }
+}
