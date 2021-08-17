@@ -1,4 +1,3 @@
-
 const fs = (require('fs'));
 const path = require('path');
 
@@ -53,24 +52,6 @@ const pathFileDiana = path.join(pathEight, 'diana.txt')
 //     console.log(err);
 // })
 
-// fs.readdir(pathEight,(err4, files) => {
-//     if (err4){
-//         console.log(err4)
-//         return;
-//     }
-//     files.forEach(file=>{
-//         const filePathNew = path.join(pathSix, file)
-//         const filePathOld = path.join(pathEight,file)
-//         fs.stat(filePathOld, (err, stats) => {
-//             if(stats.isFile()){
-//                 fs.rename(filePathOld, filePathNew, err1 => {
-//                     console.log(err1)
-//                 })
-//             }
-//
-//         })
-//     })
-// })
 
 fs.readdir(pathSix, (err, files) => {
     if (err) {
@@ -88,13 +69,11 @@ fs.readdir(pathSix, (err, files) => {
                        return;
                    }
                   let dataFile = JSON.parse(data)
-                   if(dataFile.gender == "male"){
+                   if(dataFile.gender === "male"){
                        fs.rename(filePath, filePathNew, err3 => {
                            console.log(err3)
                        })
                    }
-
-
 
                })
             }
@@ -102,6 +81,34 @@ fs.readdir(pathSix, (err, files) => {
     })
 })
 
+
+fs.readdir(pathEight, (err, files) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    files.forEach(file=>{
+        const filePath = path.join(pathEight, file)
+        const filePathNew = path.join(pathSix,file)
+        fs.stat(filePath, (err1, stats) => {
+            if(stats.isFile()){
+                fs.readFile(filePath, (err2, data) => {
+                    if(err) {
+                        console.log(err);
+                        return;
+                    }
+                    let dataFile = JSON.parse(data)
+                    if(dataFile.gender === "female"){
+                        fs.rename(filePath, filePathNew, err3 => {
+                            console.log(err3)
+                        })
+                    }
+
+                })
+            }
+        })
+    })
+})
 
 
 
