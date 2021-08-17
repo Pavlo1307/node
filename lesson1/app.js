@@ -21,35 +21,60 @@ const pathFileDiana = path.join(pathEight, 'diana.txt')
 
 
 fs.mkdir(pathSix, err => {
+    if (err){
     console.log(err)
+        return;
+    }
+
 });
 
 fs.mkdir(pathEight, err => {
-    console.log(err)
+    if (err){
+        console.log(err)
+        return
+    }
 });
 
 fs.writeFile(pathFileOleg, oleg, err => {
-    console.log(err);
+    if (err){
+        console.log(err)
+        return;
+    }
 })
 
 fs.writeFile(pathFileDima, dima, err => {
-    console.log(err);
+    if (err){
+        console.log(err)
+        return;
+    }
 })
 
 fs.writeFile(pathFileSasha, sasha, err => {
-    console.log(err);
+    if (err){
+        console.log(err)
+        return;
+    }
 })
 
 fs.writeFile(pathFileVika, vika, err => {
-    console.log(err);
+    if (err){
+        console.log(err)
+        return;
+    }
 })
 
 fs.writeFile(pathFileSophia, sophia, err => {
-    console.log(err);
+    if (err){
+        console.log(err)
+        return;
+    }
 })
 
 fs.writeFile(pathFileDiana, diana, err => {
-    console.log(err);
+    if (err){
+        console.log(err)
+        return;
+    }
 })
 
 
