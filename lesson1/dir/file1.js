@@ -55,6 +55,8 @@ const textPath = path.join(__dirname, 'text.txt');
 //     })
 // })
 
+// fs.rename() - перенести файл
+
 
 
 
