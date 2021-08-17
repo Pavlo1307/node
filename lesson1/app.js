@@ -20,37 +20,37 @@ const pathFileDiana = path.join(pathEight, 'diana.txt')
 
 
 
-// fs.mkdir(pathSix, err => {
-//     console.log(err)
-// });
-//
-// fs.mkdir(pathEight, err => {
-//     console.log(err)
-// });
-//
-// fs.writeFile(pathFileOleg, oleg, err => {
-//     console.log(err);
-// })
-//
-// fs.writeFile(pathFileDima, dima, err => {
-//     console.log(err);
-// })
-//
-// fs.writeFile(pathFileSasha, sasha, err => {
-//     console.log(err);
-// })
-//
-// fs.writeFile(pathFileVika, vika, err => {
-//     console.log(err);
-// })
-//
-// fs.writeFile(pathFileSophia, sophia, err => {
-//     console.log(err);
-// })
-//
-// fs.writeFile(pathFileDiana, diana, err => {
-//     console.log(err);
-// })
+fs.mkdir(pathSix, err => {
+    console.log(err)
+});
+
+fs.mkdir(pathEight, err => {
+    console.log(err)
+});
+
+fs.writeFile(pathFileOleg, oleg, err => {
+    console.log(err);
+})
+
+fs.writeFile(pathFileDima, dima, err => {
+    console.log(err);
+})
+
+fs.writeFile(pathFileSasha, sasha, err => {
+    console.log(err);
+})
+
+fs.writeFile(pathFileVika, vika, err => {
+    console.log(err);
+})
+
+fs.writeFile(pathFileSophia, sophia, err => {
+    console.log(err);
+})
+
+fs.writeFile(pathFileDiana, diana, err => {
+    console.log(err);
+})
 
 
 fs.readdir(pathSix, (err, files) => {
