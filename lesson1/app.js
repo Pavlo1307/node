@@ -39,8 +39,46 @@ fs.mkdir(pathManOlder20, err => {
                     console.log(err3)
                     return;
                 }
-                console.log('sdsds')
+                for (const user of users) {
+                    if(user.gender === "female") {
+                        if (user.age<=20){
+                            const pathCreateWomanYounger20 = path.join(pathWomanYounger20, user.name)
+                            fs.writeFile(pathCreateWomanYounger20, JSON.stringify(user), err => {
+                                if (err){
+                                    console.log(err);
+                                }
+                            })
+                        }
+                        else{
+                            const pathCreateWomanOlder20 = path.join(pathWomanOlder20, user.name)
+                            fs.writeFile(pathCreateWomanOlder20, JSON.stringify(user), err => {
+                                if (err){
+                                    console.log(err);
+                                }
+                            })
+                        }
 
+                    }
+                    else{
+                        if( user.age <= 20) {
+                            const pathCreateManYounger20 = path.join(pathManYounger20, user.name)
+                            fs.writeFile(pathCreateManYounger20, JSON.stringify(user), err => {
+                                if (err){
+                                    console.log(err);
+                                }
+                            })
+
+                        }
+                        else{
+                            const pathCreateManOlder20 = path.join(pathManOlder20, user.name)
+                            fs.writeFile(pathCreateManOlder20, JSON.stringify(user), err => {
+                                if (err){
+                                    console.log(err);
+                                }
+                            })
+                        }
+                    }
+                }
             })
         })
     })
