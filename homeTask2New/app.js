@@ -66,7 +66,6 @@ app.post('/register', (req, res) => {
         }
     }
     users.push(newUser);
-    console.log(users);
     res.redirect('/users');
 
 })
