@@ -25,30 +25,31 @@ app.get('/', ((req, res) => {
 }))
 
 app.get('/login', (req, res) => {
-    res.render('login', {isMale:true});
+    res.render('login' );
 })
 
 app.get('/users', (req, res) => {
-   res.render('users', { userName: 'victor', users });
+    res.render('users', { users });
 })
 
-app.get('/user/:user_id',(req, res) => {
-    const {user_id} = req.params;
-    const  currentUsers = users[user_id];
+app.get('/register', (req, res) => {
+    res.render('register' );
+})
+app.post('/login', (req, res) => {
 
-    if (!currentUsers){
-        res.status(404).end('User not found!');
-        return;
+    const { name, password } = req.body;
+
+    for (const user of users) {
+        if(name === user.name){
+            console.log(name);
+            console.log(user.name)
+            res.status(200).redirect('users');
+        }
+            res.render('register');
     }
-    res.json(currentUsers)
-})
 
-app.post('/auth', (req, res) => {
-    console.log(req.body)
-    res.json('ok' );
 
-})
-
+});
 
 app.listen(PORT, ()=>{
     console.log('App listen', PORT);
