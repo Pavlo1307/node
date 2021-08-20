@@ -26,8 +26,8 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
     const {name, password} = req.body;
-
     const foundUser = users.find(user => user.name === name);
+
     if(foundUser) {
         if (password === foundUser.password) {
             return res.redirect('/users');
