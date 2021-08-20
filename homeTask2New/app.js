@@ -27,23 +27,25 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
     const {name, password} = req.body;
 
-    for (const user of users) {
-        if (name === user.name && password === user.password) {
-            return res.status(200).redirect('/users');
-        }
-        else if (name === user.name && password !== user.password ){
-            return res.end('Password is not correct!');
+    const foundUser = users.find(user => user.name === name);
+    if(foundUser) {
+        if (password === foundUser.password) {
+            return res.redirect('/users');
+        } else if (password !== foundUser.password) {
+            return res.status(404).end('Password is not correct!');
         }
     }
     res.redirect('/register');
+    console.log(foundUser.password);
+
 });
 
-app.get('/users/:user_id',(req, res) => {
+app.get('/users/:user_id', (req, res) => {
     const {user_id} = req.params;
-    const  currentUsers = users[user_id];
+    const currentUsers = users[user_id];
 
-    if (!currentUsers){
-        res.end('User not found!');
+    if (!currentUsers) {
+        res.status(404).end('User not found!');
         return;
     }
     res.render('userInfo', {currentUsers})
@@ -61,8 +63,8 @@ app.post('/register', (req, res) => {
     const newUser = req.body;
 
     for (const user of users) {
-        if( user.name === newUser.name){
-            return res.end('Login is same',);
+        if (user.name === newUser.name) {
+            return res.status(404).end('Login is same',);
         }
     }
     users.push(newUser);
