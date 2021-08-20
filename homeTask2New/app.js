@@ -31,7 +31,7 @@ app.post('/login', (req, res) => {
         if (name === user.name && password === user.password) {
             return res.status(200).redirect('/users');
         }
-        else if (name === user.name && password != user.password){
+        else if (name === user.name && password !== user.password ){
             return res.end('Password is not correct!');
         }
     }
