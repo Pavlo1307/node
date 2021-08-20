@@ -36,8 +36,6 @@ app.post('/login', (req, res) => {
         }
     }
     res.redirect('/register');
-    console.log(foundUser.password);
-
 });
 
 app.get('/users/:user_id', (req, res) => {
