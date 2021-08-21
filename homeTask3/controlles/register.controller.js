@@ -1,8 +1,16 @@
+const users = require('../db/users');
+
 module.exports = {
-  getRegister: (req, res) => {
-    res.json('get Register');
-  },
-  postRegister: (req, res) => {
-    res.json('post Register');
-  },
+    getRegister: (req, res) => {
+        res.json('get Register');
+    },
+    postRegister: (req, res) => {
+        const newUser = req.body;
+        const foudUser = users.find((user) => user === newUser.name);
+        if (foudUser) {
+            return res.status(404).end('Login is same',);
+        }
+        users.push(newUser);
+        res.redirect('/users');
+    }
 };
