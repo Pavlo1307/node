@@ -10,10 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use(express.static(path.join(__dirname, 'static')));
-app.set('view engine', '.hbs');
-app.engine('.hbs', expressHbs({defaultLayout: false}));
-app.set('views', path.join(__dirname, 'static'));
+const userRouter = require('./router/user.routes')
 
 app.get('/', ((req, res) => {
     console.log(req);
@@ -38,20 +35,7 @@ app.post('/login', (req, res) => {
     res.redirect('/register');
 });
 
-app.get('/users/:user_id', (req, res) => {
-    const {user_id} = req.params;
-    const currentUsers = users[user_id];
-
-    if (!currentUsers) {
-        res.status(404).end('User not found!');
-        return;
-    }
-    res.render('userInfo', {currentUsers})
-})
-
-app.get('/users', (req, res) => {
-    res.render('users', {users});
-})
+app.use('/users', userRouter);
 
 app.get('/register', (req, res) => {
     res.render('register');
