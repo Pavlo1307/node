@@ -1,17 +1,29 @@
 const db = require('../db/db');
+const ErrorHandler = require('../errors/ErrorHandler');
 
 module.exports = {
-    getSingleUser: (req, res) => {
-        const { user_id } = req.params;
-        const user = db[user_id];
+    getSingleUser: (req, res, next) => {
+        try {
+            const { user_id } = req.params;
+            const user = db[user_id];
 
-        if (!user) {
-            res.status(404).json('user is not found');
-            return;
+            if (!user) {
+                throw new ErrorHandler(418, 'User not found');
+            }
+            res.json(user);
+        } catch (e) {
+            next(e);
         }
-        res.json(user);
     },
-    getAllUsers: (req, res) => {
-        res.json(db);
+
+    getAllUsers: (req, res, next) => {
+        try {
+            if (!db) {
+                throw new ErrorHandler(418, 'User not found');
+            }
+            res.json(db);
+        } catch (e) {
+            next(e);
+        }
     },
 };
