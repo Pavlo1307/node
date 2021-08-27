@@ -21,7 +21,7 @@ mongoose.connect('mongodb://localhost:27017/first', { useNewUrlParser: true, use
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const { userRouter, carRouter} = require('./routes');
+const { userRouter, carRouter } = require('./routes');
 
 app.get('/', ((req, res) => {
     res.status(404).end('not found');

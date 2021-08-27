@@ -36,10 +36,7 @@ module.exports = {
             const { car_id } = req.params;
             const car = await Car.deleteOne({ _id: car_id });
 
-            if (!car) {
-                throw new ErrorHandler(418, 'car not found');
-            }
-            res.json('car deleted');
+            res.status(204, 'Car deleted').json(car);
         } catch (e) {
             next(e);
         }
