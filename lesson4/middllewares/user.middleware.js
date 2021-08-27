@@ -2,7 +2,6 @@ const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
 const { notFound, emailExist } = require('../errors/messageError');
 
-
 module.exports = {
     isUserPresent: async (req, res, next) => {
         try {
@@ -12,6 +11,7 @@ module.exports = {
             if (!user) {
                 throw new ErrorHandler(notFound.status, notFound.message);
             }
+
             req.user = user;
             next();
         } catch (e) {
@@ -26,6 +26,7 @@ module.exports = {
             if (userByemail) {
                 throw new ErrorHandler(emailExist.status, emailExist.message);
             }
+
             next();
         } catch (e) {
             next(e);

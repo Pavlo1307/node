@@ -37,6 +37,7 @@ module.exports = {
             if (!user) {
                 throw new ErrorHandler(notFound.status, notFound.message);
             }
+
             res.json(`User with id ${user_id} is deleted`);
         } catch (e) {
             next(e);

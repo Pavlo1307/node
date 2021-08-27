@@ -11,6 +11,7 @@ module.exports = {
             if (!car) {
                 throw new ErrorHandler(notFound.status, notFound.message);
             }
+
             req.user = car;
             next();
         } catch (e) {
