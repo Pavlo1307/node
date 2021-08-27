@@ -11,9 +11,4 @@ module.exports = {
         status: 418,
         message: 'Item is not valid'
     },
-    internalServerError: {
-        status: 204,
-        message: 'Car deleted'
-    },
-
 };
