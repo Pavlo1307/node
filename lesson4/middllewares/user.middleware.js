@@ -1,5 +1,7 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
+const { notFound, emailExist } = require('../errors/messageError');
+
 
 module.exports = {
     isUserPresent: async (req, res, next) => {
@@ -8,7 +10,7 @@ module.exports = {
             const user = await User.findById(user_id);
 
             if (!user) {
-                throw new ErrorHandler(418, 'User not found');
+                throw new ErrorHandler(notFound.status, notFound.message);
             }
             req.user = user;
             next();
@@ -22,7 +24,7 @@ module.exports = {
             const userByemail = await User.findOne({ email });
 
             if (userByemail) {
-                throw new ErrorHandler(409, `Email ${email} is already exist`);
+                throw new ErrorHandler(emailExist.status, emailExist.message);
             }
             next();
         } catch (e) {

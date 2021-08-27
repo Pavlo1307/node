@@ -12,11 +12,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const { PORT } = require('./config/variables');
+const { PORT, dataBasePost } = require('./config/variables');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/first', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(dataBasePost, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

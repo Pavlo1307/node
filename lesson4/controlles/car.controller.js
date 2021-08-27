@@ -1,5 +1,4 @@
 const Car = require('../dataBase/Car');
-const ErrorHandler = require('../errors/ErrorHandler');
 
 module.exports = {
     getSingleCar: (req, res, next) => {
@@ -12,9 +11,6 @@ module.exports = {
 
     getAllCars: async (req, res, next) => {
         try {
-            if (!Car) {
-                throw new ErrorHandler(418, 'User not found');
-            }
             const allUser = await Car.find({});
             res.json(allUser);
         } catch (e) {
@@ -36,7 +32,7 @@ module.exports = {
             const { car_id } = req.params;
             const car = await Car.deleteOne({ _id: car_id });
 
-            res.status(204, 'Car deleted').json(car);
+            res.status().json(car);
         } catch (e) {
             next(e);
         }

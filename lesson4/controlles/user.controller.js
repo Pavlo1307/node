@@ -1,5 +1,6 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
+const { notFound } = require('../errors/messageError');
 
 module.exports = {
     getSingleUser: (req, res, next) => {
@@ -12,9 +13,6 @@ module.exports = {
 
     getAllUsers: async (req, res, next) => {
         try {
-            if (!User) {
-                throw new ErrorHandler(418, 'User not found');
-            }
             const allUser = await User.find({});
             res.json(allUser);
         } catch (e) {
@@ -37,7 +35,7 @@ module.exports = {
             const user = await User.deleteOne({ _id: user_id });
 
             if (!user) {
-                throw new ErrorHandler(418, 'User not found');
+                throw new ErrorHandler(notFound.status, notFound.message);
             }
             res.json(`User with id ${user_id} is deleted`);
         } catch (e) {
