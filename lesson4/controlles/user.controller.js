@@ -39,7 +39,7 @@ module.exports = {
             if (!user) {
                 throw new ErrorHandler(418, 'User not found');
             }
-            res.status(204).json(`User with id ${user_id} is deleted`);
+            res.json(`User with id ${user_id} is deleted`);
         } catch (e) {
             next(e);
         }
