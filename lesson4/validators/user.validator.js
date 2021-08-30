@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { EMAIL_REGEXP, PASSWORD_REGEXP } = require('../config/constans');
 const { CURRENT_YEAR } = require('../config/variables');
-const { userRolesEnum } = require('../config/userRoles.enum');
+const  userRolesEnum = require('../config/userRoles.enum');
 
 const girlsValidator = Joi.object({
     name: Joi.string(),
