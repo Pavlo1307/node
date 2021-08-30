@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { EMAIL_REGEX, PASSWORD_REGEX } = require('../config/constans');
+const { EMAIL_REGEXP, PASSWORD_REGEXP } = require('../config/constans');
 const { CURRENT_YEAR } = require('../config/variables');
 const { userRolesEnum } = require('../config/userRoles.enum');
 
@@ -12,9 +12,9 @@ const createUserValidator = Joi.object({
     name: Joi.string().alphanum().min(2).max(30)
         .required()
         .trim(),
-    password: Joi.string().regex(PASSWORD_REGEX).required(),
+    password: Joi.string().regex(PASSWORD_REGEXP).required(),
     born_year: Joi.number().min(CURRENT_YEAR - 120).max(CURRENT_YEAR - 6),
-    email: Joi.string().regex(EMAIL_REGEX).required(),
+    email: Joi.string().regex(EMAIL_REGEXP).required(),
     role: Joi.string().allow(...Object.values(userRolesEnum)),
 
     car: Joi.boolean(),
@@ -26,7 +26,7 @@ const createUserValidator = Joi.object({
 
 const updateUser = Joi.object({
     name: Joi.string().alphanum().min(2).max(30),
-    email: Joi.string().regex(EMAIL_REGEX)
+    email: Joi.string().regex(EMAIL_REGEXP)
 });
 
 module.exports = {
