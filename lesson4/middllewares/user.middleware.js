@@ -1,6 +1,7 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
 const { notFound, emailExist } = require('../errors/messageError');
+const userValidator = require('../validators/user.validator');
 
 module.exports = {
     isUserPresent: async (req, res, next) => {
@@ -31,5 +32,23 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    }
+    },
+
+    validateUserBody: (req, res, next) => {
+        try {
+            const { error, value } = userValidator.createUserValidator.validate(req.body);
+
+            console.log('___________________________');
+            console.log(value);
+            console.log('___________________________');
+
+            if (error) {
+                throw new ErrorHandler(400, error.details[0].message);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
 };
