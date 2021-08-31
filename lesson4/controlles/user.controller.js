@@ -17,7 +17,8 @@ module.exports = {
     getAllUsers: async (req, res, next) => {
         try {
             const allUser = await User.find({});
-            res.json(allUser);
+            const allUserToReturn = allUser.map((value) => userNormalizator(value));
+            res.json(allUserToReturn);
         } catch (e) {
             next(e);
         }
