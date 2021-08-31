@@ -1,18 +1,22 @@
-const { passwordService } = require('../service/password.service');
+const passwordService = require('../service/password.service');
 
+console.log('qqqqqq');
 module.exports = {
-    checkLoginPassword: async (req, res, next) => {
+
+    cheakPassword: async (req, res, next) => {
         try {
-            const { user, body } = req;
-            console.log(user);
-            console.log(body);
+            const { user } = req;
+            const { password } = req.body;
 
-            await passwordService.compare(user.password, body.password);
+            console.log('hesh', user.password);
+            console.log('----------------');
+            console.log('password', password);
 
-            res.json('You are logged in');
-            next();
+            await passwordService.compare(password, user.password);
+            res.json('You are login');
         } catch (e) {
             next(e);
         }
-    }
+    },
+
 };

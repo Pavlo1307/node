@@ -22,12 +22,13 @@ mongoose.connect(dataBasePost, { useNewUrlParser: true, useUnifiedTopology: true
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const { userRouter, carRouter } = require('./routes');
+const { userRouter, carRouter, loginRouter } = require('./routes');
 
 app.get('/', ((req, res) => {
     res.status(404).end('not found');
 }));
 
+app.use('/login', loginRouter);
 app.use('/users', userRouter);
 app.use('/cars', carRouter);
 app.use('*', _notFoundError);

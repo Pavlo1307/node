@@ -1,17 +1,16 @@
 const Users = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
-const { alreadyExist } = require('../errors/messageError');
+const { mailIsWrong } = require('../errors/messageError');
 
 module.exports = {
 
     isEmailExist: async (req, res, next) => {
         try {
             const { email } = req.body;
-            console.log(email);
             const user = await Users.findOne({ email });
 
             if (!user) {
-                throw new ErrorHandler(400, alreadyExist);
+                throw new ErrorHandler(400, mailIsWrong);
             }
 
             req.user = user;
