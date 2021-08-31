@@ -1,7 +1,7 @@
 const Car = require('../dataBase/Car');
 const ErrorHandler = require('../errors/ErrorHandler');
 const { notFound } = require('../errors/messageError');
-const carValidator = require('../validators/car.validator');
+const { carValidator } = require('../validators');
 
 module.exports = {
     isCarPresent: async (req, res, next) => {

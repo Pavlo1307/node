@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { loginController } = require('../controlles');
-const { isEmailExist } = require('../middllewares/login.middleware');
+const { loginMiddleware } = require('../middllewares');
 
-router.post('/', isEmailExist, loginController.cheakPassword);
+router.post('/', loginMiddleware.isEmailExist, loginController.cheakPassword);
 
 module.exports = router;
