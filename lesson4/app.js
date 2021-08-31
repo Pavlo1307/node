@@ -11,6 +11,7 @@
 // додати errorHandler
 const express = require('express');
 const mongoose = require('mongoose');
+const { notFound } = require('./errors/messageError');
 
 const { PORT, dataBasePost } = require('./config/variables');
 
@@ -39,7 +40,7 @@ app.listen(PORT, () => {
 function _notFoundError(err, req, res, next) {
     next({
         status: err.status || 404,
-        message: err.message || 'Not found'
+        message: err.message || notFound
     });
 }
 

@@ -1,14 +1,7 @@
 module.exports = {
-    notFound: {
-        status: 404,
-        message: 'Item Not found'
-    },
-    emailExist: {
-        status: 409,
-        message: 'Email is already exist'
-    },
-    notValid: {
-        status: 418,
-        message: 'Item is not valid'
-    },
+    alreadyExist: ' is already exist',
+    notFound: ' is Not Found',
+    deleted: ' was deleted',
+    mailIsWrong: 'Email or password is wrong',
+    notValid: 'not valid'
 };

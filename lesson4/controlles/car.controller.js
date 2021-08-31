@@ -3,7 +3,7 @@ const Car = require('../dataBase/Car');
 module.exports = {
     getSingleCar: (req, res, next) => {
         try {
-            res.json(req.user);
+            res.json(req.car);
         } catch (e) {
             next(e);
         }
@@ -11,8 +11,8 @@ module.exports = {
 
     getAllCars: async (req, res, next) => {
         try {
-            const allUser = await Car.find({});
-            res.json(allUser);
+            const allCar = await Car.find({});
+            res.json(allCar);
         } catch (e) {
             next(e);
         }
@@ -20,8 +20,8 @@ module.exports = {
 
     createCar: async (req, res, next) => {
         try {
-            const createdUSer = await Car.create(req.body);
-            res.json(createdUSer);
+            const createdCar = await Car.create(req.body);
+            res.json(createdCar);
         } catch (e) {
             next(e);
         }
@@ -32,7 +32,7 @@ module.exports = {
             const { car_id } = req.params;
             const car = await Car.deleteOne({ _id: car_id });
 
-            res.status().json(car);
+            res.status(418).json(car);
         } catch (e) {
             next(e);
         }

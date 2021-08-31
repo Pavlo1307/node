@@ -1,6 +1,6 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
-const { notFound, emailExist } = require('../errors/messageError');
+const { notFound, alreadyExist } = require('../errors/messageError');
 const userValidator = require('../validators/user.validator');
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
             const user = await User.findById(user_id);
 
             if (!user) {
-                throw new ErrorHandler(notFound.status, notFound.message);
+                throw new ErrorHandler(400, notFound);
             }
 
             req.user = user;
@@ -22,10 +22,10 @@ module.exports = {
     checkUniqueEmail: async (req, res, next) => {
         try {
             const { email } = req.body;
-            const userByemail = await User.findOne({ email });
+            const userByEmail = await User.findOne({ email });
 
-            if (userByemail) {
-                throw new ErrorHandler(emailExist.status, emailExist.message);
+            if (userByEmail) {
+                throw new ErrorHandler(400, alreadyExist);
             }
 
             next();
@@ -37,11 +37,10 @@ module.exports = {
     validateUserBody: (req, res, next) => {
         try {
             const { error } = userValidator.createUserValidator.validate(req.body);
-
+            console.log(error);
             if (error) {
                 throw new ErrorHandler(400, error.details[0].message);
             }
-
             next();
         } catch (e) {
             next(e);

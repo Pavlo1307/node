@@ -2,7 +2,7 @@ const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
 const passwordService = require('../service/password.service');
 const { userNormalizator } = require('../utils/user.util');
-const { notFound } = require('../errors/messageError');
+const { notFound, deleted } = require('../errors/messageError');
 
 module.exports = {
     getSingleUser: (req, res, next) => {
@@ -28,9 +28,9 @@ module.exports = {
             const { password } = req.body;
 
             const hashedPassword = await passwordService.hash(password);
-            const createdUSer = await User.create({ ...req.body, password: hashedPassword });
+            const createdUser = await User.create({ ...req.body, password: hashedPassword });
 
-            const userToReturn = userNormalizator(createdUSer);
+            const userToReturn = userNormalizator(createdUser);
 
             res.json(userToReturn);
         } catch (e) {
@@ -44,10 +44,10 @@ module.exports = {
             const user = await User.deleteOne({ _id: user_id });
 
             if (!user) {
-                throw new ErrorHandler(notFound.status, notFound.message);
+                throw new ErrorHandler(404, notFound);
             }
 
-            res.json(`User with id ${user_id} is deleted`);
+            res.status(404).json(deleted);
         } catch (e) {
             next(e);
         }
