@@ -1,16 +1,7 @@
-// Вам необхідно реалізувати CRUD на дві сутності (user, car)
-//
-// Мають бути реалізовані такі методи:
-// 1) Create user
-// 2) Get all users
-// 3) Get user by email or name
-// 4) Delete current user
-//
-// Все це має бути розбито по роутах, контроллерах, сервісах з обовязковою перевіркою всього що приходить через мідлвари.
-//     Також всі меджік стрінги мають бути винесені в константи.
-// додати errorHandler
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
+
 const { notFound } = require('./errors/messageError');
 
 const { PORT, dataBasePost } = require('./config/variables');
@@ -35,6 +26,7 @@ app.use('*', _notFoundError);
 app.use(_mainErrorHandler);
 
 app.listen(PORT, () => {
+    console.log('dsdsdsd');
     console.log('App listen', PORT);
 });
 
