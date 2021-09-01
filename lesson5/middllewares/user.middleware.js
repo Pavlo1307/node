@@ -12,7 +12,7 @@ module.exports = {
             if (!user) {
                 throw new ErrorHandler(400, notFound);
             }
-
+            console.log(user);
             req.user = user;
             next();
         } catch (e) {
