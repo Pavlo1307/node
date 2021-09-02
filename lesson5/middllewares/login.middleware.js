@@ -1,5 +1,6 @@
 const Users = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
+const { BAD_REQUEST } = require('../errors/statusError');
 const { mailIsWrong } = require('../errors/messageError');
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
             const user = await Users.findOne({ email });
 
             if (!user) {
-                throw new ErrorHandler(400, mailIsWrong);
+                throw new ErrorHandler(BAD_REQUEST, mailIsWrong);
             }
 
             req.user = user;

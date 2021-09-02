@@ -1,5 +1,6 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
+const { BAD_REQUEST, FORBIDDEN } = require('../errors/statusError');
 const { notFound, alreadyExist } = require('../errors/messageError');
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
             const userByEmail = await User.findOne({ email });
 
             if (userByEmail) {
-                throw new ErrorHandler(400, alreadyExist);
+                throw new ErrorHandler(BAD_REQUEST, alreadyExist);
             }
 
             next();
@@ -26,7 +27,7 @@ module.exports = {
                 return next();
             }
             if (!roleArr.includes(role)) {
-                throw new ErrorHandler(403, 'Forbidden');
+                throw new ErrorHandler(FORBIDDEN, 'Forbidden');
             }
 
             next();
@@ -40,7 +41,7 @@ module.exports = {
             const user = await User.findOne({ [dbId]: value });
 
             if (!user) {
-                throw new ErrorHandler(400, notFound);
+                throw new ErrorHandler(BAD_REQUEST, notFound);
             }
 
             req.user = user;

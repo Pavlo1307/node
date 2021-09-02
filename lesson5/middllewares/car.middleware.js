@@ -1,5 +1,6 @@
 const Car = require('../dataBase/Car');
 const ErrorHandler = require('../errors/ErrorHandler');
+const { BAD_REQUEST } = require('../errors/statusError');
 const { notFound } = require('../errors/messageError');
 const { carValidator } = require('../validators');
 
@@ -10,7 +11,7 @@ module.exports = {
             const car = await Car.findById(car_id);
 
             if (!car) {
-                throw new ErrorHandler(201, notFound);
+                throw new ErrorHandler(BAD_REQUEST, notFound);
             }
 
             req.car = car;
@@ -25,7 +26,7 @@ module.exports = {
             const { error } = carValidator.createCarValidator.validate(req.body);
 
             if (error) {
-                throw new ErrorHandler(400, error.details[0].message);
+                throw new ErrorHandler(BAD_REQUEST, error.details[0].message);
             }
             next();
         } catch (e) {

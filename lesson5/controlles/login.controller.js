@@ -1,6 +1,5 @@
 const passwordService = require('../service/password.service');
 
-console.log('qqqqqq');
 module.exports = {
 
     cheakPassword: async (req, res, next) => {
