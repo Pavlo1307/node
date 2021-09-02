@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { NOT_FOUND } = require('./errors/statusError');
 require('dotenv').config();
 
 const { notFound } = require('./errors/messageError');
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 const { userRouter, carRouter, loginRouter } = require('./routes');
 
 app.get('/', ((req, res) => {
-    res.status(404).end('not found');
+    res.status(NOT_FOUND).end(notFound);
 }));
 
 app.use('/login', loginRouter);
