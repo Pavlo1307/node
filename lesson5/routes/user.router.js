@@ -7,7 +7,7 @@ const {
     }
 } = require('../middllewares');
 const { userController } = require('../controlles');
-const { ADMIN } = require('../config/userRoles.enum');
+const { USER } = require('../config/userRoles.enum');
 const { createUserValidator, updateUser } = require('../validators/user.validator');
 
 router.post('/', validateBody(createUserValidator),
@@ -22,7 +22,7 @@ router.get('/:user_id',
 
 router.delete('/:user_id',
     getUserByDynamicParam('user_id'),
-    checkUserRoleMiddleware([ADMIN]),
+    checkUserRoleMiddleware([USER]),
     userController.deleteUser);
 
 router.put('/:user_id',
