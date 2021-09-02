@@ -5,4 +5,3 @@ module.exports = {
     mailIsWrong: 'Email or password is wrong',
     notValid: 'not valid'
 };
-
