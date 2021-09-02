@@ -26,7 +26,6 @@ app.use('*', _notFoundError);
 app.use(_mainErrorHandler);
 
 app.listen(PORT, () => {
-    console.log('dsdsdsd');
     console.log('App listen', PORT);
 });
 

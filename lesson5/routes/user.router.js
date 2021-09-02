@@ -1,12 +1,33 @@
 const router = require('express').Router();
 
-const { userMiddleware } = require('../middllewares');
+const { validateBody } = require('../middllewares/validator.middleware');
+const {
+    userMiddleware: {
+        getUserByDynamicParam, checkUserRoleMiddleware, checkUniqueEmail,
+    }
+} = require('../middllewares');
 const { userController } = require('../controlles');
+const { ADMIN } = require('../config/userRoles.enum');
+const { createUserValidator, updateUser } = require('../validators/user.validator');
 
-router.post('/', userMiddleware.validateUserBody, userMiddleware.checkUniqueEmail, userController.createUser);
+router.post('/', validateBody(createUserValidator),
+    checkUniqueEmail,
+    userController.createUser);
+
 router.get('/', userController.getAllUsers);
-router.get('/:user_id', userMiddleware.isUserPresent, userController.getSingleUser);
-router.delete('/:user_id', userMiddleware.isUserPresent, userController.deleteUser);
-router.put('/:user_id', userMiddleware.isUserPresent, userController.updateUser);
+
+router.get('/:user_id',
+    getUserByDynamicParam('user_id', 'params', '_id'),
+    userController.getSingleUser);
+
+router.delete('/:user_id',
+    getUserByDynamicParam('user_id'),
+    checkUserRoleMiddleware([ADMIN]),
+    userController.deleteUser);
+
+router.put('/:user_id',
+    validateBody(updateUser),
+    getUserByDynamicParam('user_id'),
+    userController.updateUser);
 
 module.exports = router;
