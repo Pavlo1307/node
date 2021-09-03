@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const { userRoles: { USER, ADMIN } } = require('../config');
 
-const { databaseTabelsEnam: { user } } = require('../config');
+const { databaseTablesEnum: { user } } = require('../config');
 
 const userSchema = new Schema({
     name: {

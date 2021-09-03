@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const { databaseTabelsEnam: { user, login } } = require('../config');
+const { databaseTablesEnum: { user, login } } = require('../config');
 
 const LoginSchema = new Schema({
     access_token: {

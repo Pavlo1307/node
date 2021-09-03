@@ -4,5 +4,8 @@ module.exports = {
     deleted: ' was deleted',
     mailIsWrong: 'Email or password is wrong',
     notValid: 'not valid',
-    InvalidToken: 'Invalid token'
+    InvalidToken: 'Invalid token',
+    noToken: 'no token',
+    forbidden: 'Forbidden',
+    idFalse: 'id is false'
 };

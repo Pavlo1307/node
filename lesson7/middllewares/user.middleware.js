@@ -1,7 +1,11 @@
 const { USER } = require('../dataBase');
 const { ErrorHandler } = require('../errors');
 const { statusErr: { FORBIDDEN, NOT_FOUND, CONFLICT } } = require('../errors');
-const { messageError: { notFound, alreadyExist } } = require('../errors');
+const {
+    messageError: {
+        notFound, alreadyExist, forbidden, idFalse
+    }
+} = require('../errors');
 
 module.exports = {
     isUserNotPresent: (req, res, next) => {
@@ -41,7 +45,7 @@ module.exports = {
             }
 
             if (!roleArr.includes(role)) {
-                throw new ErrorHandler(FORBIDDEN, 'Forbidden');
+                throw new ErrorHandler(FORBIDDEN, forbidden);
             }
 
             next();
@@ -56,6 +60,20 @@ module.exports = {
             const user = await USER.findOne({ [dbId]: value });
 
             req.user = user;
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    CheckUserForUpdate: (req, res, next) => {
+        try {
+            const { params: { user_id }, loginUser: { _id } } = req;
+
+            if (user_id !== _id.toString()) {
+                throw new ErrorHandler(FORBIDDEN, idFalse);
+            }
+
             next();
         } catch (e) {
             next(e);

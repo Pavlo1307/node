@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const { databaseTabelsEnam: { car } } = require('../config');
+const { databaseTablesEnum: { car } } = require('../config');
 
 const carSchema = new Schema({
     model: {
