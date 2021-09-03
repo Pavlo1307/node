@@ -22,11 +22,13 @@ router.post('/',
 router.get('/', userController.getAllUsers);
 
 router.get('/:user_id',
-    getUserByDynamicParam('user_id', 'param', '_id'),
+    getUserByDynamicParam('user_id', 'params', '_id'),
+    isUserNotPresent,
     userController.getSingleUser);
 
 router.delete('/:user_id',
-    getUserByDynamicParam('user_id'),
+    getUserByDynamicParam('user_id', 'params', '_id'),
+    isUserNotPresent,
     checkUserRoleMiddleware([USER]),
     userController.deleteUser);
 

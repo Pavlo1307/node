@@ -1,6 +1,8 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
-const { BAD_REQUEST, FORBIDDEN, NOT_FOUND } = require('../errors/statusError');
+const {
+    BAD_REQUEST, FORBIDDEN, NOT_FOUND, CONFLICT
+} = require('../errors/statusError');
 const { notFound, alreadyExist } = require('../errors/messageError');
 
 module.exports = {
@@ -23,22 +25,7 @@ module.exports = {
             const { user } = req;
 
             if (user) {
-                throw new ErrorHandler(NOT_FOUND, alreadyExist);
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-
-    checkUniqueEmail: async (req, res, next) => {
-        try {
-            const { email } = req.body;
-            const userByEmail = await User.findOne({ email });
-
-            if (userByEmail) {
-                throw new ErrorHandler(BAD_REQUEST, alreadyExist);
+                throw new ErrorHandler(CONFLICT, alreadyExist);
             }
 
             next();
@@ -63,6 +50,7 @@ module.exports = {
             next(e);
         }
     },
+
     getUserByDynamicParam: (paramName, searchIn = 'body', dbId = paramName) => async (req, res, next) => {
         try {
             const value = req[searchIn][paramName];

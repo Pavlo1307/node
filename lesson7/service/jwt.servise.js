@@ -5,7 +5,7 @@ const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = require('../config/variables')
 const verifyPromise = util.promisify(jwt.verify);
 
 module.exports = {
-    generateTokenService: () => {
+    generateTokenPair: () => {
         const access_token = jwt.sign({}, ACCESS_SECRET_KEY, { expiresIn: '15m' });
         const refresh_token = jwt.sign({}, REFRESH_SECRET_KEY, { expiresIn: '31d' });
 
