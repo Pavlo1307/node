@@ -2,6 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const { userRoles: { USER, ADMIN } } = require('../config');
 
+const { databaseTabelsEnam: { user } } = require('../config');
+
 const userSchema = new Schema({
     name: {
         type: String,
@@ -29,4 +31,4 @@ const userSchema = new Schema({
     }
 }, { timestamps: true });
 
-module.exports = model('user', userSchema);
+module.exports = model(user, userSchema);

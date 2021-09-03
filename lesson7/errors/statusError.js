@@ -11,5 +11,7 @@ module.exports = {
 
     SERVER_ERROR: 500,
 
-    FORBIDDEN: 403
+    FORBIDDEN: 403,
+
+    Unauthorized: 401
 };

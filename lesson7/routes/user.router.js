@@ -12,6 +12,7 @@ const {
 const { userController } = require('../controlles');
 const { userRoles: { USER } } = require('../config');
 const { userValidator: { createUserValidator, updateUser } } = require('../validators');
+const { loginMiddleware: { validateAccessToken } } = require('../middllewares');
 
 router.post('/',
     validateBody(createUserValidator),
@@ -27,6 +28,7 @@ router.get('/:user_id',
     userController.getSingleUser);
 
 router.delete('/:user_id',
+    validateAccessToken,
     getUserByDynamicParam('user_id', 'params', '_id'),
     isUserNotPresent,
     checkUserRoleMiddleware([USER]),
