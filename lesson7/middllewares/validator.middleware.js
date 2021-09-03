@@ -1,4 +1,4 @@
-const { errorHandler} = require('../errors');
+const { errorHandler } = require('../errors');
 const { statusErr: { BAD_REQUEST } } = require('../errors');
 
 module.exports = {
