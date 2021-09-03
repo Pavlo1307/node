@@ -28,6 +28,7 @@ module.exports = {
             if (error) {
                 throw new ErrorHandler(BAD_REQUEST, error.details[0].message);
             }
+
             next();
         } catch (e) {
             next(e);

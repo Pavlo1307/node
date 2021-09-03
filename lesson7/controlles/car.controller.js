@@ -1,4 +1,5 @@
 const Car = require('../dataBase/Car');
+const { CREATED, NO_CONTENT } = require('../errors/statusError');
 
 module.exports = {
     getSingleCar: (req, res, next) => {
@@ -21,7 +22,7 @@ module.exports = {
     createCar: async (req, res, next) => {
         try {
             const createdCar = await Car.create(req.body);
-            res.json(createdCar);
+            res.status(CREATED).json(createdCar);
         } catch (e) {
             next(e);
         }
@@ -32,7 +33,7 @@ module.exports = {
             const { car_id } = req.params;
             const car = await Car.deleteOne({ _id: car_id });
 
-            res.status(418).json(car);
+            res.status(NO_CONTENT).json(car);
         } catch (e) {
             next(e);
         }
@@ -42,7 +43,7 @@ module.exports = {
         try {
             const { car_id } = req.params;
             const car = await Car.updateOne({ _id: car_id }, req.body);
-            res.json(car);
+            res.status(CREATED).json(car);
         } catch (e) {
             next(e);
         }

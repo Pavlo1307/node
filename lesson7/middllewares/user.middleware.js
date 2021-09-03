@@ -41,6 +41,7 @@ module.exports = {
             if (!roleArr.length) {
                 return next();
             }
+
             if (!roleArr.includes(role)) {
                 throw new ErrorHandler(FORBIDDEN, 'Forbidden');
             }
@@ -57,7 +58,6 @@ module.exports = {
             const user = await User.findOne({ [dbId]: value });
 
             req.user = user;
-
             next();
         } catch (e) {
             next(e);
