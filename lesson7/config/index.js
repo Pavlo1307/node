@@ -1,3 +1,5 @@
 module.exports = {
-    regexpEnum: require('./constans'),
+    constants: require('./constans'),
+    userRoles: require('./userRoles.enum'),
+    variables: require('./variables')
 };

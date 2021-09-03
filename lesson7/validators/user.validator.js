@@ -1,7 +1,7 @@
 const Joi = require('joi');
-const { EMAIL_REGEXP, PASSWORD_REGEXP } = require('../config/constans');
-const { CURRENT_YEAR } = require('../config/variables');
-const userRolesEnum = require('../config/userRoles.enum');
+const { constants: { EMAIL_REGEXP, PASSWORD_REGEXP } } = require('../config');
+const { variables: { CURRENT_YEAR } } = require('../config');
+const { userRoles } = require('../config');
 
 const girlsValidator = Joi.object({
     name: Joi.string(),
@@ -15,7 +15,7 @@ const createUserValidator = Joi.object({
     password: Joi.string().regex(PASSWORD_REGEXP).required(),
     born_year: Joi.number().min(CURRENT_YEAR - 120).max(CURRENT_YEAR - 6),
     email: Joi.string().regex(EMAIL_REGEXP).required(),
-    role: Joi.string().allow(...Object.values(userRolesEnum)),
+    role: Joi.string().allow(...Object.values(userRoles)),
 
     car: Joi.boolean(),
 

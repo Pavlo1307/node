@@ -1,9 +1,7 @@
-const User = require('../dataBase/User');
-const ErrorHandler = require('../errors/ErrorHandler');
-const {
-    BAD_REQUEST, FORBIDDEN, NOT_FOUND, CONFLICT
-} = require('../errors/statusError');
-const { notFound, alreadyExist } = require('../errors/messageError');
+const { USER } = require('../dataBase');
+const { errorHandler } = require('../errors');
+const { statusErr: { FORBIDDEN, NOT_FOUND, CONFLICT } } = require('../errors');
+const { messageError: { notFound, alreadyExist } } = require('../errors');
 
 module.exports = {
     isUserNotPresent: (req, res, next) => {
@@ -11,7 +9,7 @@ module.exports = {
             const { user } = req;
 
             if (!user) {
-                throw new ErrorHandler(NOT_FOUND, notFound);
+                throw new errorHandler.ErrorHandler(NOT_FOUND, notFound);
             }
 
             next();
@@ -25,7 +23,7 @@ module.exports = {
             const { user } = req;
 
             if (user) {
-                throw new ErrorHandler(CONFLICT, alreadyExist);
+                throw new errorHandler.ErrorHandler(CONFLICT, alreadyExist);
             }
 
             next();
@@ -43,7 +41,7 @@ module.exports = {
             }
 
             if (!roleArr.includes(role)) {
-                throw new ErrorHandler(FORBIDDEN, 'Forbidden');
+                throw new errorHandler.ErrorHandler(FORBIDDEN, 'Forbidden');
             }
 
             next();
@@ -55,7 +53,7 @@ module.exports = {
     getUserByDynamicParam: (paramName, searchIn = 'body', dbId = paramName) => async (req, res, next) => {
         try {
             const value = req[searchIn][paramName];
-            const user = await User.findOne({ [dbId]: value });
+            const user = await USER.findOne({ [dbId]: value });
 
             req.user = user;
             next();

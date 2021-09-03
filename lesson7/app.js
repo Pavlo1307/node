@@ -1,11 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { NOT_FOUND } = require('./errors/statusError');
+const { statusErr: { NOT_FOUND } } = require('./errors');
 require('dotenv').config();
 
-const { notFound } = require('./errors/messageError');
-
-const { PORT, dataBasePost } = require('./config/variables');
+const { messageError: { notFound } } = require('./errors');
+const { variables: { PORT, dataBasePost } } = require('./config');
 
 const app = express();
 

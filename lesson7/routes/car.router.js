@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { validatorMiddleware: { validateBody } } = require('../middllewares');
 const { carMiddleware } = require('../middllewares');
 const { carController } = require('../controlles');
-const { createCarValidator, updateCarValidator } = require('../validators/car.validator');
+const { carValidator: { createCarValidator, updateCarValidator } } = require('../validators');
 
 router.post('/', validateBody(createCarValidator), carController.createCar);
 router.get('/', carController.getAllCars);

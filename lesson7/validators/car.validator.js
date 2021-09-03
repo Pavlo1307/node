@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { CURRENT_YEAR } = require('../config/variables');
+const { variables: { CURRENT_YEAR } } = require('../config');
 
 const createCarValidator = Joi.object({
     model: Joi.string().alphanum().min(2).max(30)

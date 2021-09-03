@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const util = require('util');
-const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = require('../config/variables');
+const { variables: { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } } = require('../config');
 
 const verifyPromise = util.promisify(jwt.verify);
 

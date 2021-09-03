@@ -1,6 +1,6 @@
-const passwordService = require('../service/password.service');
-const jwtService = require('../service/jwt.servise');
-const { userNormalizator } = require('../utils/user.util');
+const { passwordService } = require('../service');
+const { jwtService } = require('../service');
+const { userUtil: { userNormalizator } } = require('../utils');
 
 module.exports = {
 
