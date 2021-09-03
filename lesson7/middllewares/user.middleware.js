@@ -1,9 +1,37 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
-const { BAD_REQUEST, FORBIDDEN } = require('../errors/statusError');
+const { BAD_REQUEST, FORBIDDEN, NOT_FOUND } = require('../errors/statusError');
 const { notFound, alreadyExist } = require('../errors/messageError');
 
 module.exports = {
+    isUserNotPresent: (req, res, next) => {
+        try {
+            const { user } = req;
+
+            if (!user) {
+                throw new ErrorHandler(NOT_FOUND, notFound);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    isUserPresent: (req, res, next) => {
+        try {
+            const { user } = req;
+
+            if (user) {
+                throw new ErrorHandler(NOT_FOUND, alreadyExist);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
     checkUniqueEmail: async (req, res, next) => {
         try {
             const { email } = req.body;
@@ -39,10 +67,6 @@ module.exports = {
         try {
             const value = req[searchIn][paramName];
             const user = await User.findOne({ [dbId]: value });
-
-            if (!user) {
-                throw new ErrorHandler(BAD_REQUEST, notFound);
-            }
 
             req.user = user;
 
