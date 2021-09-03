@@ -1,6 +1,7 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
 const passwordService = require('../service/password.service');
+const { CREATED } = require("../errors/statusError");
 const { NO_CONTENT } = require('../errors/statusError');
 const { userNormalizator } = require('../utils/user.util');
 const { notFound, deleted } = require('../errors/messageError');
@@ -33,7 +34,7 @@ module.exports = {
 
             const userToReturn = userNormalizator(createdUser);
 
-            res.json(userToReturn);
+            res.status(CREATED).json(userToReturn);
         } catch (e) {
             next(e);
         }
@@ -58,7 +59,7 @@ module.exports = {
         try {
             const { user_id } = req.params;
             const user = await User.updateOne({ _id: user_id }, req.body);
-            res.json(user);
+            res.status(CREATED).json(user);
         } catch (e) {
             next(e);
         }
