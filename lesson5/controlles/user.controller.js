@@ -1,6 +1,7 @@
 const User = require('../dataBase/User');
 const ErrorHandler = require('../errors/ErrorHandler');
 const passwordService = require('../service/password.service');
+const { NO_CONTENT } = require('../errors/statusError');
 const { userNormalizator } = require('../utils/user.util');
 const { notFound, deleted } = require('../errors/messageError');
 
@@ -44,10 +45,10 @@ module.exports = {
             const user = await User.deleteOne({ _id: user_id });
 
             if (!user) {
-                throw new ErrorHandler(404, notFound);
+                throw new ErrorHandler(NO_CONTENT, notFound);
             }
 
-            res.status(404).json(deleted);
+            res.status(NO_CONTENT).json(deleted);
         } catch (e) {
             next(e);
         }
