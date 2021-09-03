@@ -1,5 +1,5 @@
 module.exports = {
-    errorHandler: require('./ErrorHandler'),
+    ErrorHandler: require('./ErrorHandler'),
     messageError: require('./messageError'),
     statusErr: require('./statusError')
 };

@@ -1,4 +1,4 @@
-const { errorHandler } = require('../errors');
+const { ErrorHandler } = require('../errors');
 const { statusErr: { BAD_REQUEST } } = require('../errors');
 
 module.exports = {
@@ -7,7 +7,7 @@ module.exports = {
             const { error } = validator.validate(req.body);
 
             if (error) {
-                throw new errorHandler.ErrorHandler(BAD_REQUEST, error.details[0].message);
+                throw new ErrorHandler(BAD_REQUEST, error.details[0].message);
             }
 
             next();

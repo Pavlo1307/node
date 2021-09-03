@@ -1,5 +1,5 @@
 const { USER } = require('../dataBase');
-const { errorHandler } = require('../errors');
+const { ErrorHandler } = require('../errors');
 const { statusErr: { FORBIDDEN, NOT_FOUND, CONFLICT } } = require('../errors');
 const { messageError: { notFound, alreadyExist } } = require('../errors');
 
@@ -9,7 +9,7 @@ module.exports = {
             const { user } = req;
 
             if (!user) {
-                throw new errorHandler.ErrorHandler(NOT_FOUND, notFound);
+                throw new ErrorHandler(NOT_FOUND, notFound);
             }
 
             next();
@@ -23,7 +23,7 @@ module.exports = {
             const { user } = req;
 
             if (user) {
-                throw new errorHandler.ErrorHandler(CONFLICT, alreadyExist);
+                throw new ErrorHandler(CONFLICT, alreadyExist);
             }
 
             next();
@@ -41,7 +41,7 @@ module.exports = {
             }
 
             if (!roleArr.includes(role)) {
-                throw new errorHandler.ErrorHandler(FORBIDDEN, 'Forbidden');
+                throw new ErrorHandler(FORBIDDEN, 'Forbidden');
             }
 
             next();

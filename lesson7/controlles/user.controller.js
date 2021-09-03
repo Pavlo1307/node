@@ -1,5 +1,5 @@
 const { USER } = require('../dataBase');
-const { errorHandler } = require('../errors');
+const { ErrorHandler } = require('../errors');
 const { passwordService } = require('../service');
 const { statusErr: { NO_CONTENT, CREATED, NOT_FOUND } } = require('../errors');
 const { userUtil: { userNormalizator } } = require('../utils');
@@ -45,7 +45,7 @@ module.exports = {
             const user = await USER.deleteOne({ _id: user_id });
 
             if (!user) {
-                throw new errorHandler.ErrorHandler(NOT_FOUND, notFound);
+                throw new ErrorHandler(NOT_FOUND, notFound);
             }
 
             res.status(NO_CONTENT).json(deleted);
