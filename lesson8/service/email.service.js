@@ -1,5 +1,16 @@
 const nodemailer = require('nodemailer');
+const path = require('path');
+
+const EmailTemplates = require('email-templates');
+const allTemplates = require('../email-templates');
+const { ErrorHandler } = require('../errors');
 const { variables: { noReplyEmail, noReplyPassword } } = require('../config');
+
+const templateParser = new EmailTemplates({
+    views: {
+        root: path.join(process.cwd(), 'email-templates')
+    }
+});
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -9,13 +20,21 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendMail = (userMail) => {
-    console.log(2);
+const sendMail = async (userMail, emailAction) => {
+    const templateInfo = allTemplates[emailAction];
+
+    if (!templateInfo) {
+        throw new ErrorHandler(500, 'Template not found');
+    }
+
+    const { templateName, subject } = templateInfo;
+    const html = await templateParser.render(templateName, { userName: 'Sophia' });
+
     return transporter.sendMail({
         from: 'No reply',
         to: userMail,
-        subject: ' hello word',
-        html: '<h1> Body email</h1>'
+        subject,
+        html
 
     });
 };

@@ -7,6 +7,6 @@ module.exports = {
     REFRESH_SECRET_KEY: 'SecretWord2',
 
     noReplyEmail: process.env.noReplyEmail || 'pavloshavel@gmail.com',
-    noReplyPassword: process.env.noReplyPassword || 'pasha0713'
+    noReplyPassword: process.env.noReplyPassword || '00000'
 
 };

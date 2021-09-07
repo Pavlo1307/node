@@ -29,7 +29,8 @@
     "eslint-plugin-promise": "^5.1.0",
     "nodemon": "^2.0.12",
     "@types/mongoose": "^5.11.97",
-    "@types/nodemailer": "^6.4.4"
+    "@types/nodemailer": "^6.4.4",
+    "@types/email-templates": "^8.0.4"
   },
   "husky": {
     "hooks": {

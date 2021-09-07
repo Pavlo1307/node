@@ -1,4 +1,6 @@
 const { USER } = require('../dataBase');
+const { emailActionsEnum } = require('../config');
+
 const { ErrorHandler } = require('../errors');
 const { passwordService, emailService } = require('../service');
 const { statusErr: { NO_CONTENT, CREATED, NOT_FOUND } } = require('../errors');
@@ -10,7 +12,7 @@ module.exports = {
         try {
             const userToReturn = userNormalizator(req.user);
 
-             await emailService.sendMail('pavloshavel@gmail.com');
+             await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.WELCOME);
 
             res.json(userToReturn);
         } catch (e) {
