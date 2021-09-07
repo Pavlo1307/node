@@ -13,8 +13,12 @@ const {
 const { userController } = require('../controlles');
 const { userRoles: { USER } } = require('../config');
 const { userValidator: { createUserValidator, updateUser } } = require('../validators');
-const { loginMiddleware: { validateAccessToken } } = require('../middllewares');
-const { constants: { email, body, user_id,  params, id}  } = require('../config');
+const { loginMiddleware: { validateToken } } = require('../middllewares');
+const {
+    constants: {
+        email, body, user_id, params, id
+    }
+} = require('../config');
 
 router.post('/',
     validateBody(createUserValidator),
@@ -30,7 +34,7 @@ router.get('/:user_id',
     userController.getSingleUser);
 
 router.delete('/:user_id',
-    validateAccessToken,
+    validateToken(),
     getUserByDynamicParam(user_id, params, id),
     isUserNotPresent,
     checkUserRoleMiddleware([USER]),

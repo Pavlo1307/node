@@ -6,6 +6,8 @@ module.exports = {
     body: 'body',
     user_id: 'user_id',
     params: 'params',
-    id: '_id'
+    id: '_id',
+    access: 'access_token',
+    refresh: 'refresh_token'
 
 };

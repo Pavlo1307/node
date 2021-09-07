@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const util = require('util');
+const { access } = require('../config/constans');
 const { messageError: { InvalidToken } } = require('../errors');
 const { ErrorHandler } = require('../errors');
 const { statusErr: { Unauthorized } } = require('../errors');
@@ -18,9 +19,9 @@ module.exports = {
         };
     },
 
-    varifyToken: async (token, tokenType = 'access',) => {
+    varifyToken: async (token, tokenType = access) => {
         try {
-            const secret = tokenType === 'access' ? ACCESS_SECRET_KEY : REFRESH_SECRET_KEY;
+            const secret = tokenType === access ? ACCESS_SECRET_KEY : REFRESH_SECRET_KEY;
 
             await verifyPromise(token, secret);
         } catch (e) {

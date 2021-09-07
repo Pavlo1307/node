@@ -2,7 +2,6 @@ const { CAR } = require('../dataBase');
 const { ErrorHandler } = require('../errors');
 const { statusErr: { BAD_REQUEST } } = require('../errors');
 const { messageError: { notFound } } = require('../errors');
-const { carValidator } = require('../validators');
 
 module.exports = {
     isCarPresent: async (req, res, next) => {
@@ -20,19 +19,4 @@ module.exports = {
             next(e);
         }
     },
-
-    validateCarBody: (req, res, next) => {
-        try {
-            const { error } = carValidator.createCarValidator.validate(req.body);
-
-            if (error) {
-                throw new ErrorHandler(BAD_REQUEST, error.details[0].message);
-            }
-
-            next();
-        } catch (e) {
-            next(e);
-        }
-    }
-
 };
