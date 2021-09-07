@@ -8,6 +8,6 @@ module.exports = {
     params: 'params',
     id: '_id',
     access: 'access_token',
-    refresh: 'refresh_token'
+    refresh: 'refresh_token',
 
 };

@@ -1,14 +1,17 @@
 const { USER } = require('../dataBase');
 const { ErrorHandler } = require('../errors');
-const { passwordService } = require('../service');
+const { passwordService, emailService } = require('../service');
 const { statusErr: { NO_CONTENT, CREATED, NOT_FOUND } } = require('../errors');
 const { userUtil: { userNormalizator } } = require('../utils');
 const { messageError: { notFound, deleted } } = require('../errors');
 
 module.exports = {
-    getSingleUser: (req, res, next) => {
+    getSingleUser: async (req, res, next) => {
         try {
             const userToReturn = userNormalizator(req.user);
+
+             await emailService.sendMail('pavloshavel@gmail.com');
+
             res.json(userToReturn);
         } catch (e) {
             next(e);

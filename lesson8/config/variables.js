@@ -4,5 +4,9 @@ module.exports = {
     CURRENT_YEAR: new Date().getFullYear(),
 
     ACCESS_SECRET_KEY: 'Secret',
-    REFRESH_SECRET_KEY: 'SecretWord2'
+    REFRESH_SECRET_KEY: 'SecretWord2',
+
+    noReplyEmail: process.env.noReplyEmail || 'pavloshavel@gmail.com',
+    noReplyPassword: process.env.noReplyPassword || 'pasha0713'
+
 };
