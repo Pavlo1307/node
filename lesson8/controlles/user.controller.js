@@ -53,10 +53,15 @@ module.exports = {
             await USER.deleteOne({ _id: user_id });
 
             if (!isUser) {
-                await emailService.sendMail(email, emailActionsEnum.DELETE);
+                await emailService.sendMail(email, emailActionsEnum.DELETE_ADMIN);
+                res.sendStatus(NO_CONTENT);
+
+                return;
             }
-            await emailService.sendMail(email, emailActionsEnum.DELETE_ADMIN);
-            res.status(NO_CONTENT);
+
+            await emailService.sendMail(email, emailActionsEnum.DELETE);
+
+            res.sendStatus(NO_CONTENT);
         } catch (e) {
             next(e);
         }

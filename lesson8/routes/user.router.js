@@ -37,7 +37,7 @@ router.delete('/:user_id',
     validateToken(),
     getUserByDynamicParam(user_id, params, id),
     isUserNotPresent,
-    checkUserRoleMiddleware([ADMIN]),
+    checkUserRoleMiddleware([USER]),
     userController.deleteUser);
 
 router.put('/:user_id',
