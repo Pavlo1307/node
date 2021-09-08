@@ -12,3 +12,4 @@ router.delete('/:car_id', carMiddleware.isCarPresent, carController.deleteCar);
 router.put('/:car_id', validateBody(updateCarValidator), carMiddleware.isCarPresent, carController.updateCar);
 
 module.exports = router;
+console.log('ddddd');
