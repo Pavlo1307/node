@@ -1,4 +1,8 @@
 module.exports = {
-    WELCOME: 'welcome'
+    WELCOME: 'welcome',
+    LOGIN: 'login',
+    CREATE: 'create',
+    DELETE: 'delete',
+    UPDATE: 'update'
 
 };

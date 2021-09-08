@@ -1,3 +1,5 @@
+const { emailService } = require("../service");
+const { emailActionsEnum } = require('../config');
 const { passwordService } = require('../service');
 const { jwtService } = require('../service');
 const { userUtil: { userNormalizator } } = require('../utils');
@@ -16,6 +18,8 @@ module.exports = {
             const tokenPair = jwtService.generateTokenPair();
 
             await Login.create({ ...tokenPair, user: user._id });
+
+            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.LOGIN);
 
             res.json({
                 ...tokenPair,

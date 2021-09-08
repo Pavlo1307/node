@@ -43,6 +43,7 @@ router.delete('/:user_id',
 router.put('/:user_id',
     validateBody(updateUser),
     getUserByDynamicParam(user_id),
+    validateToken(),
     CheckUserForUpdate,
     userController.updateUser);
 

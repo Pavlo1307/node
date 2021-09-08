@@ -58,7 +58,6 @@ module.exports = {
         try {
             const value = req[searchIn][paramName];
             const user = await USER.findOne({ [dbId]: value });
-
             req.user = user;
             next();
         } catch (e) {
@@ -69,7 +68,6 @@ module.exports = {
     CheckUserForUpdate: (req, res, next) => {
         try {
             const { params: { user_id }, loginUser: { _id } } = req;
-
             if (user_id !== _id.toString()) {
                 throw new ErrorHandler(FORBIDDEN, idFalse);
             }

@@ -38,6 +38,8 @@ module.exports = {
 
             const userToReturn = userNormalizator(createdUser);
 
+            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.CREATE);
+
             res.status(CREATED).json(userToReturn);
         } catch (e) {
             next(e);
@@ -52,7 +54,7 @@ module.exports = {
             if (!user) {
                 throw new ErrorHandler(NOT_FOUND, notFound);
             }
-
+            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.DELETE);
             res.status(NO_CONTENT).json(deleted);
         } catch (e) {
             next(e);
@@ -62,7 +64,10 @@ module.exports = {
     updateUser: async (req, res, next) => {
         try {
             const { user_id } = req.params;
+            console.log(user_id);
             const user = await USER.updateOne({ _id: user_id }, req.body);
+
+            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.UPDATE);
 
             res.status(CREATED).json(user);
         } catch (e) {
