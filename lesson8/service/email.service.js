@@ -28,7 +28,7 @@ const sendMail = async (userMail, emailAction) => {
     }
 
     const { templateName, subject } = templateInfo;
-    const html = await templateParser.render(templateName, { userName: 'Sophia' });
+    const html = await templateParser.render(templateName, { userName: 'Sofia' });
 
     return transporter.sendMail({
         from: 'No reply',

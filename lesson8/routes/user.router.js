@@ -11,7 +11,7 @@ const {
     }
 } = require('../middllewares');
 const { userController } = require('../controlles');
-const { userRoles: { USER } } = require('../config');
+const { userRoles: { USER, ADMIN } } = require('../config');
 const { userValidator: { createUserValidator, updateUser } } = require('../validators');
 const { loginMiddleware: { validateToken } } = require('../middllewares');
 const {
@@ -37,13 +37,13 @@ router.delete('/:user_id',
     validateToken(),
     getUserByDynamicParam(user_id, params, id),
     isUserNotPresent,
-    checkUserRoleMiddleware([USER]),
+    checkUserRoleMiddleware([ADMIN]),
     userController.deleteUser);
 
 router.put('/:user_id',
     validateBody(updateUser),
-    getUserByDynamicParam(user_id),
     validateToken(),
+    getUserByDynamicParam(user_id),
     CheckUserForUpdate,
     userController.updateUser);
 

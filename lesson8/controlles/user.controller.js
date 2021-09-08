@@ -12,7 +12,7 @@ module.exports = {
         try {
             const userToReturn = userNormalizator(req.user);
 
-             await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.WELCOME);
+            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.WELCOME);
 
             res.json(userToReturn);
         } catch (e) {
@@ -32,13 +32,12 @@ module.exports = {
 
     createUser: async (req, res, next) => {
         try {
-            const { password } = req.body;
+            const { password, email } = req.body;
             const hashedPassword = await passwordService.hash(password);
             const createdUser = await USER.create({ ...req.body, password: hashedPassword });
-
             const userToReturn = userNormalizator(createdUser);
 
-            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.CREATE);
+            await emailService.sendMail(email, emailActionsEnum.CREATE);
 
             res.status(CREATED).json(userToReturn);
         } catch (e) {
@@ -48,14 +47,16 @@ module.exports = {
 
     deleteUser: async (req, res, next) => {
         try {
-            const { user_id } = req.params;
-            const user = await USER.deleteOne({ _id: user_id });
+            const { user_id, } = req.params;
+            const { isUser, user: { email } } = req;
 
-            if (!user) {
-                throw new ErrorHandler(NOT_FOUND, notFound);
+            await USER.deleteOne({ _id: user_id });
+
+            if (!isUser) {
+                await emailService.sendMail(email, emailActionsEnum.DELETE);
             }
-            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.DELETE);
-            res.status(NO_CONTENT).json(deleted);
+            await emailService.sendMail(email, emailActionsEnum.DELETE_ADMIN);
+            res.status(NO_CONTENT);
         } catch (e) {
             next(e);
         }
@@ -64,10 +65,11 @@ module.exports = {
     updateUser: async (req, res, next) => {
         try {
             const { user_id } = req.params;
-            console.log(user_id);
+            const { email, name } = req.body;
+            console.log(email, name);
             const user = await USER.updateOne({ _id: user_id }, req.body);
 
-            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.UPDATE);
+            await emailService.sendMail(email, emailActionsEnum.UPDATE, { userName: name });
 
             res.status(CREATED).json(user);
         } catch (e) {

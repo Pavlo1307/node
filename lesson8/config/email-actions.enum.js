@@ -3,6 +3,7 @@ module.exports = {
     LOGIN: 'login',
     CREATE: 'create',
     DELETE: 'delete',
-    UPDATE: 'update'
+    UPDATE: 'update',
+    DELETE_ADMIN: 'deleteAdmin'
 
 };

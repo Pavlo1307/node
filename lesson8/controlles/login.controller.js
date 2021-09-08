@@ -11,15 +11,14 @@ module.exports = {
     cheakPassword: async (req, res, next) => {
         try {
             const { user } = req;
-            const { password } = req.body;
-
+            const { password, email } = req.body;
             await passwordService.compare(password, user.password);
 
             const tokenPair = jwtService.generateTokenPair();
 
             await Login.create({ ...tokenPair, user: user._id });
 
-            await emailService.sendMail('pavloshavel@gmail.com', emailActionsEnum.LOGIN);
+            await emailService.sendMail(email, emailActionsEnum.LOGIN);
 
             res.json({
                 ...tokenPair,

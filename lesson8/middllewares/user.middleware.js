@@ -38,7 +38,12 @@ module.exports = {
 
     checkUserRoleMiddleware: (roleArr = []) => (req, res, next) => {
         try {
-            const { role } = req.user;
+            const { params: { user_id }, loginUser: { _id, role } } = req;
+
+            if (user_id === _id.toString()) {
+                req.isUser = true;
+                return next();
+            }
 
             if (!roleArr.length) {
                 return next();
