@@ -1,10 +1,11 @@
 const router = require('express').Router();
 
+const { actionTokensEnum } = require('../config');
 const { loginController } = require('../controlles');
 const { userMiddleware } = require('../middllewares');
-const { loginValidator: { authValidator } } = require('../validators');
+const { loginValidator: { authValidator, changePasswordValidator } } = require('../validators');
 const { validatorMiddleware: { validateBody } } = require('../middllewares');
-const { loginMiddleware: { validateToken } } = require('../middllewares');
+const { loginMiddleware: { validateToken, validateActionToken } } = require('../middllewares');
 const { constants: { refresh } } = require('../config');
 const { constants: { email } } = require('../config');
 
@@ -13,7 +14,7 @@ router.post('/', validateBody(authValidator),
     userMiddleware.isUserNotPresent,
     loginController.cheakPassword);
 
-router.post('/logout', validateToken,
+router.post('/logout', validateToken(),
     loginController.logoutUser);
 
 router.post('/refresh', validateToken(refresh),
@@ -25,8 +26,12 @@ router.post('/password/forgot/send',
     loginController.sendEmailForgotPassword);
 
 router.post('/password/forgot/set',
-    userMiddleware.getUserByDynamicParam(email),
-    userMiddleware.isUserNotPresent,
-    loginController.sendEmailForgotPassword);
+    userMiddleware.validateNewPassword,
+    validateActionToken(actionTokensEnum.FORGOT_PASS),
+    loginController.resetPassword('false'));
+
+router.post('password/change',
+    validateBody(changePasswordValidator),
+    validateToken());
 
 module.exports = router;

@@ -8,11 +8,13 @@ const girlsValidator = Joi.object({
     age: Joi.number().min(15).max(60)
 });
 
+const passwordSchema = Joi.string().regex(PASSWORD_REGEXP).required();
+
 const createUserValidator = Joi.object({
     name: Joi.string().alphanum().min(2).max(30)
         .required()
         .trim(),
-    password: Joi.string().regex(PASSWORD_REGEXP).required(),
+    password: passwordSchema,
     born_year: Joi.number().min(CURRENT_YEAR - 120).max(CURRENT_YEAR - 6),
     email: Joi.string().regex(EMAIL_REGEXP).required(),
     role: Joi.string().allow(...Object.values(userRoles)),
@@ -31,5 +33,5 @@ const updateUser = Joi.object({
 
 module.exports = {
     createUserValidator,
-    updateUser
+    updateUser,
 };

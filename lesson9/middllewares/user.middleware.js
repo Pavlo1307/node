@@ -1,3 +1,5 @@
+const { statusErr: { BAD_REQUEST } } = require('../errors');
+const { userValidator } = require('../validators');
 const { USER } = require('../dataBase');
 const { ErrorHandler } = require('../errors');
 const { statusErr: { FORBIDDEN, NOT_FOUND, CONFLICT } } = require('../errors');
@@ -81,5 +83,21 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    }
+    },
+
+    validateNewPassword: (req, res, next) => {
+        try {
+            const { error, value } = userValidator.passwordValidator.validate(req.body);
+
+            req.body = value;
+
+            if (error) {
+                throw new ErrorHandler(BAD_REQUEST, error.details[0].message);
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
 };

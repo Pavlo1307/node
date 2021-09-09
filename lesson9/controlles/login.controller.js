@@ -3,7 +3,7 @@ const { emailActionsEnum, actionTokensEnum, variables: { FrontendURL } } = requi
 const { passwordService } = require('../service');
 const { jwtService } = require('../service');
 const { userUtil: { userNormalizator } } = require('../utils');
-const { Login, ActionTokens } = require('../dataBase');
+const { Login, ActionTokens, USER } = require('../dataBase');
 const { constants: { authorization } } = require('../config');
 
 module.exports = {
@@ -47,7 +47,6 @@ module.exports = {
             await Login.deleteOne({ refresh_token });
 
             const tokenPair = jwtService.generateTokenPair();
-            console.log(tokenPair);
             await Login.create({ ...tokenPair, user: user._id });
 
             res.json({
@@ -77,6 +76,27 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    }
+    },
+
+    resetPassword: (isForgot = true) => async (req, res, next) => {
+        try {
+            const { loginUser: { _id }, body: { password } } = req;
+            const token = req.get(authorization);
+
+            const hashPassword = await passwordService.hash(password);
+
+            if (isForgot) {
+                await ActionTokens.deleteOne({ token });
+            }
+
+            await USER.findByIdAndUpdate(_id, { password: hashPassword });
+
+            await Login.deleteOne({ user: _id });
+
+            res.json('Ok');
+        } catch (e) {
+            next(e);
+        }
+    },
 
 };

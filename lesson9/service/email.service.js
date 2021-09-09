@@ -31,7 +31,7 @@ const sendMail = async (userMail, emailAction, context = {}) => {
     const { templateName, subject } = templateInfo;
     context.frontendURL = FrontendURL;
 
-    const html = await templateParser.render(templateName, { userName: context });
+    const html = await templateParser.render(templateName, context);
 
     return transporter.sendMail({
         from: 'No reply',
