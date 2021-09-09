@@ -19,4 +19,14 @@ router.post('/logout', validateToken,
 router.post('/refresh', validateToken(refresh),
     loginController.refresh);
 
+router.post('/password/forgot/send',
+    userMiddleware.getUserByDynamicParam(email),
+    userMiddleware.isUserNotPresent,
+    loginController.sendEmailForgotPassword);
+
+router.post('/password/forgot/set',
+    userMiddleware.getUserByDynamicParam(email),
+    userMiddleware.isUserNotPresent,
+    loginController.sendEmailForgotPassword);
+
 module.exports = router;

@@ -5,6 +5,7 @@ const EmailTemplates = require('email-templates');
 const allTemplates = require('../email-templates');
 const { ErrorHandler } = require('../errors');
 const { variables: { noReplyEmail, noReplyPassword } } = require('../config');
+const { variables: { FrontendURL } } = require('../config');
 
 const templateParser = new EmailTemplates({
     views: {
@@ -20,7 +21,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendMail = async (userMail, emailAction) => {
+const sendMail = async (userMail, emailAction, context = {}) => {
     const templateInfo = allTemplates[emailAction];
 
     if (!templateInfo) {
@@ -28,7 +29,9 @@ const sendMail = async (userMail, emailAction) => {
     }
 
     const { templateName, subject } = templateInfo;
-    const html = await templateParser.render(templateName, { userName: 'Sofia' });
+    context.frontendURL = FrontendURL;
+
+    const html = await templateParser.render(templateName, { userName: context });
 
     return transporter.sendMail({
         from: 'No reply',

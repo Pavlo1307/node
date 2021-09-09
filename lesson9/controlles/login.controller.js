@@ -1,9 +1,9 @@
-const { emailService } = require("../service");
-const { emailActionsEnum } = require('../config');
+const { emailService } = require('../service');
+const { emailActionsEnum, actionTokensEnum, variables: { FrontendURL } } = require('../config');
 const { passwordService } = require('../service');
 const { jwtService } = require('../service');
 const { userUtil: { userNormalizator } } = require('../utils');
-const { Login } = require('../dataBase');
+const { Login, ActionTokens } = require('../dataBase');
 const { constants: { authorization } } = require('../config');
 
 module.exports = {
@@ -54,6 +54,26 @@ module.exports = {
                 ...tokenPair,
                 user: userNormalizator(req.user)
             });
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    sendEmailForgotPassword: async (req, res, next) => {
+        try {
+            const { user } = req;
+
+            const actionToken = jwtService.generateActionToken(actionTokensEnum.FORGOT_PASS);
+
+            await ActionTokens.create({ token: actionToken, user: user._id });
+
+            await emailService.sendMail('pavloshavel@gmail.com',
+                emailActionsEnum.FORGOT_PASSWORD, {
+                    userName: user.name,
+                    forgotPasswordURL: `${FrontendURL}/password?token=${actionToken}`
+                });
+
+            res.json('Ok');
         } catch (e) {
             next(e);
         }

@@ -5,6 +5,8 @@ module.exports = {
 
     ACCESS_SECRET_KEY: 'Secret',
     REFRESH_SECRET_KEY: 'SecretWord2',
+    FORGOT_PASSWORD_SECRET_KEY: 'secretForgot',
+    FrontendURL: 'https://google.com',
 
     noReplyEmail: process.env.noReplyEmail || 'pavloshavel@gmail.com',
     noReplyPassword: process.env.noReplyPassword || '00000'

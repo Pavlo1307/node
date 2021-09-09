@@ -30,4 +30,9 @@ module.exports = {
         templateName: 'deleteAdmin',
         subject: 'DELETE_ADMIN'
     },
+
+    [emailActionsEnum.FORGOT_PASSWORD]: {
+        templateName: 'forgot_password',
+        subject: 'Forgot_password'
+    },
 };

@@ -7,5 +7,6 @@ module.exports = {
     InvalidToken: 'Invalid token',
     noToken: 'no token',
     forbidden: 'Forbidden',
-    idFalse: 'id is false'
+    idFalse: 'id is false',
+    wrongTokenType: 'Wrong token type'
 };

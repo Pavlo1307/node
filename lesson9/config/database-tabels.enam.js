@@ -1,5 +1,6 @@
 module.exports = {
     user: 'user',
     car: 'car',
-    login: 'login'
+    login: 'login',
+    actionToken: 'actionToken'
 };
