@@ -16,7 +16,6 @@ module.exports = {
             if (!token) {
                 throw new ErrorHandler(Unauthorized, noToken);
             }
-
             await varifyToken(token, typeToken);
 
             const tokenFromDB = await Login.findOne({ [typeToken]: token }).populate('user');
@@ -59,8 +58,9 @@ module.exports = {
     ifPasswordExist: async (req, res, next) => {
         try {
             const { loginUser, body: { oldPassword } } = req;
-
-            await passwordService.compare(loginUser.password, oldPassword);
+            console.log(loginUser.password, 'login');
+            console.log(oldPassword, 'old');
+            await passwordService.compare(oldPassword, loginUser.password);
 
             next();
         } catch (e) {

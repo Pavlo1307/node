@@ -9,6 +9,7 @@ module.exports = {
                 throw new ErrorHandler(BAD_REQUEST, error.details[0].message);
             }
             next();
+            console.log('helloBody');
         } catch (e) {
             next(e);
         }

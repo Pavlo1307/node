@@ -3,9 +3,9 @@ const router = require('express').Router();
 const { actionTokensEnum } = require('../config');
 const { loginController } = require('../controlles');
 const { userMiddleware } = require('../middllewares');
-const { loginValidator: { authValidator, changePasswordValidator } } = require('../validators');
+const { loginValidator: { authValidator, changePasswordValidator, passwordValidator } } = require('../validators');
 const { validatorMiddleware: { validateBody } } = require('../middllewares');
-const { loginMiddleware: { validateToken, validateActionToken } } = require('../middllewares');
+const { loginMiddleware: { validateToken, validateActionToken, ifPasswordExist } } = require('../middllewares');
 const { constants: { refresh } } = require('../config');
 const { constants: { email } } = require('../config');
 
@@ -26,12 +26,14 @@ router.post('/password/forgot/send',
     loginController.sendEmailForgotPassword);
 
 router.post('/password/forgot/set',
-    userMiddleware.validateNewPassword,
+    validateBody(passwordValidator),
     validateActionToken(actionTokensEnum.FORGOT_PASS),
-    loginController.resetPassword('false'));
+    loginController.resetPassword());
 
-router.post('password/change',
+router.put('/password/change',
     validateBody(changePasswordValidator),
-    validateToken());
+    validateToken(),
+    ifPasswordExist,
+    loginController.resetPassword('false'));
 
 module.exports = router;
