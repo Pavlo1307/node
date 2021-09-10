@@ -1,3 +1,5 @@
+const { statusErr: { CREATED } } = require('../errors');
+const { updateUser } = require('./user.controller');
 const { emailService } = require('../service');
 const { emailActionsEnum, actionTokensEnum, variables: { FrontendURL } } = require('../config');
 const { passwordService } = require('../service');
@@ -94,6 +96,20 @@ module.exports = {
             await Login.deleteOne({ user: _id });
 
             res.json('Ok');
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    activationUser: async (req, res, next) => {
+        try {
+            const { _id } = req.loginUser;
+            const token = req.get(authorization);
+
+            await updateUser({ _id }, { isActivated: true });
+            await ActionTokens.deleteOne({ token });
+
+            res.sendStatus(CREATED);
         } catch (e) {
             next(e);
         }

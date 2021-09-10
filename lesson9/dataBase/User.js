@@ -28,7 +28,13 @@ const userSchema = new Schema({
             USER,
             ADMIN
         ]
-    }
+    },
+
+    isActivate: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
 }, { timestamps: true });
 
 module.exports = model(user, userSchema);

@@ -36,4 +36,8 @@ router.put('/password/change',
     ifPasswordExist,
     loginController.resetPassword('false'));
 
+router.post('/activation',
+    validateActionToken(actionTokensEnum.ACTIVE_USER),
+    loginController.activationUser);
+
 module.exports = router;

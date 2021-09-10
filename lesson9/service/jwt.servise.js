@@ -5,7 +5,15 @@ const { access } = require('../config/constans');
 const { messageError: { InvalidToken, wrongTokenType } } = require('../errors');
 const { ErrorHandler } = require('../errors');
 const { statusErr: { Unauthorized, SERVER_ERROR } } = require('../errors');
-const { variables: { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY, FORGOT_PASSWORD_SECRET_KEY } } = require('../config');
+const {
+    variables:
+    {
+        ACCESS_SECRET_KEY,
+        REFRESH_SECRET_KEY,
+        FORGOT_PASSWORD_SECRET_KEY,
+        ACTIVE_SECRET_KEY
+    }
+} = require('../config');
 
 const verifyPromise = util.promisify(jwt.verify);
 
@@ -50,8 +58,8 @@ function _getSecretWordForActionToken(actionType) {
         case actionTokensEnum.FORGOT_PASS:
             secretWord = FORGOT_PASSWORD_SECRET_KEY;
             break;
-        case 'x2':
-            secretWord = 'dasdaooosda';
+        case actionTokensEnum.ACTIVE_USER:
+            secretWord = ACTIVE_SECRET_KEY;
             break;
         default:
             throw new ErrorHandler(SERVER_ERROR, wrongTokenType);
